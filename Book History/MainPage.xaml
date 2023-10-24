@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Book_History.MainPage">
+
+    <ScrollView>
+        <VerticalStackLayout
+            Spacing="25"
+            Padding="30,0"
+            VerticalOptions="Center">
+
+            <Image
+                Source="dotnet_bot.png"
+                SemanticProperties.Description="Cute dot net bot waving hi to you!"
+                HeightRequest="200"
+                HorizontalOptions="Center" />
+
+            <Label
+                Text="Welcome Back!"
+                SemanticProperties.HeadingLevel="Level1"
+                FontSize="32"
+                HorizontalOptions="Center" />
+
+            <Label
+                Text="Let's get Reading!"
+                SemanticProperties.HeadingLevel="Level2"
+                SemanticProperties.Description="Let's get Reading!"
+                FontSize="18"
+                HorizontalOptions="Center" />
+
+            <Button
+                x:Name="HistoryBtn"
+                Text="History"
+                SemanticProperties.Hint="Takes user to page listing all the books they have read"
+                Clicked="OnHistoryClicked"
+                HorizontalOptions="Center" />
+
+            <Button
+                x:Name="ReadBookBtn"
+                Text="Read Book"
+                SemanticProperties.Hint="Takes user to page to add the book they are reading"
+                Clicked="OnReadClicked"
+                HorizontalOptions="Center" />
+
+            <Button
+                x:Name="QuitBtn"
+                Text="Quit"
+                SemanticProperties.Hint="Quit the program"
+                Clicked="OnQuitCliked"
+                HorizontalOptions="Center" />
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>
