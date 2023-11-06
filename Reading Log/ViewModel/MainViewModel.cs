@@ -15,7 +15,8 @@ public partial class MainViewModel : ObservableObject
             string line = reader.ReadLine();
             while (line != null)
             {
-                Books.Add(line);
+                string[] bookDetails = line.Split(",");
+                Books.Add(bookDetails[0] + " by " + bookDetails[1]);
                 line = reader.ReadLine();
             }
             reader.Close();
@@ -31,6 +32,12 @@ public partial class MainViewModel : ObservableObject
     [ObservableProperty]
     string author;
 
+    [ObservableProperty]
+    bool bookFinished;
+
+    [ObservableProperty]
+    string summary;
+
     [RelayCommand]
     void Add()
     {
@@ -40,12 +47,12 @@ public partial class MainViewModel : ObservableObject
             Author = string.Empty;
             return;
         }
-        if (!Books.Contains(Book + " : " + Author))
+        if (!Books.Contains(Book + " by " + Author))
         {
             string filePath = "C:\\Books\\Books.csv";
             if (!System.IO.File.Exists(filePath))
             {
-                System.IO.File.Create(filePath);  
+                System.IO.File.Create(filePath).Close();  
             }
             string content;
             using (StreamReader reader = new(filePath))
@@ -55,13 +62,23 @@ public partial class MainViewModel : ObservableObject
             }
             using (StreamWriter writer = new StreamWriter(filePath))
             {
+                string bookStatus = "";
+                if (BookFinished) 
+                {
+                    bookStatus = "Finished";
+                } else
+                {
+                    bookStatus = "Reading";
+                }
                 if (!string.IsNullOrWhiteSpace(content)) writer.WriteLine(content);
-                writer.Write(Book + " : " + Author);
+                writer.Write(Book + "," + Author + "," + Summary + "," + bookStatus);
                 writer.Close();
             }
-            Books.Add(Book + " : " + Author);
+            Books.Add(Book + " by " + Author);
             Book = string.Empty;
             Author = string.Empty;
+            Summary = string.Empty;
+            BookFinished = false;
         } else
         {
             Book = "Already read!";
@@ -76,5 +93,13 @@ public partial class MainViewModel : ObservableObject
         {
             Books.Remove(bookDetail);
         }
+    }
+
+    [RelayCommand]
+    void DeleteAll()
+    {
+        Books.Clear();
+        string filePath = "C:\\Books\\Books.csv";
+        System.IO.File.Create(filePath).Close();
     }
 }

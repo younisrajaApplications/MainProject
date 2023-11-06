@@ -6,7 +6,7 @@
              x:DataType="viewmodel:MainViewModel">
 
     <ScrollView>
-        <Grid RowDefinitions="100, Auto, Auto, Auto, *"
+        <Grid RowDefinitions="100, Auto, Auto, Auto, Auto, Auto, *, Auto"
               ColumnDefinitions=".75*,.25*"
               Padding="10"
               RowSpacing="10"
@@ -24,12 +24,22 @@
                    Grid.Row="2"
                    Grid.ColumnSpan="2"/>
 
+            <Entry Placeholder="Book Summary"
+                   Text="{Binding Summary}"
+                   Grid.Row="3"
+                   Grid.ColumnSpan="2"/>
+
+            <RadioButton Content="Finished"
+                         IsChecked="{Binding BookFinished}"
+                         Grid.Row="4"
+                         Grid.ColumnSpan="2"/>
+
             <Button Text="Add Book"
                     Command="{Binding AddCommand}"
-                    Grid.Row="3"
+                    Grid.Row="5"
                     Grid.ColumnSpan="2"/>
 
-            <CollectionView Grid.Row="4" Grid.ColumnSpan="2" HorizontalOptions="Center"
+            <CollectionView Grid.Row="6" Grid.ColumnSpan="2" HorizontalOptions="Center"
                             ItemsSource="{Binding Books}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="{x:Type x:String}">
@@ -42,17 +52,22 @@
                                                CommandParameter="{Binding .}"/>
                                 </SwipeItems>
                             </SwipeView.RightItems>
-                                <Grid Padding="0,5">
-                                    <Frame>
-                                        <Label Text="{Binding .}"
+                            <Grid Padding="0,5">
+                                <Frame>
+                                    <Label Text="{Binding .}"
                                                FontSize="20"
                                                HorizontalOptions="Center"/>
-                                    </Frame>
-                                </Grid>
+                                </Frame>
+                            </Grid>
                         </SwipeView>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
+
+            <Button Text="Delete All Books"
+                    Command="{Binding DeleteAllCommand}"
+                    Grid.Row="7"
+                    Grid.ColumnSpan="2"/>
         </Grid>
     </ScrollView>
 </ContentPage>
