@@ -111,7 +111,7 @@ public partial class MainViewModel : ObservableObject
                         string[] savedBook = book.Split(",");
                         string savedBookName = savedBook[0];
                         string savedBookAuthor = savedBook[1];
-                        if (!bookName.Equals(savedBookName) && !authorName.Equals(savedBookAuthor))
+                        if (!bookName.Equals(savedBookName) || !authorName.Equals(savedBookAuthor))
                         {
                             writer.WriteLine(book);
                         }
