@@ -34,7 +34,41 @@ public partial class BookDetailsViewModel : ObservableObject
         await Shell.Current.GoToAsync("..");
     }
 
-
+    [RelayCommand]
+    void SaveChanges()
+    {
+        if (NewSummary != Summary)
+        {
+            string documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            string filePath = Path.Combine(documentsPath, "Books.csv");
+            using (StreamReader reader = new(filePath))
+            {
+                string book = reader.ReadLine();
+                System.IO.File.Create(Path.Combine(documentsPath, "NewBooks.csv")).Close();
+                using (StreamWriter writer = new(Path.Combine(documentsPath, "NewBooks.csv")))
+                {
+                    while (!string.IsNullOrEmpty(book))
+                    {
+                        string[] savedBook = book.Split(",");
+                        string savedBookName = savedBook[0];
+                        string savedBookAuthor = savedBook[1];
+                        if (!BookName.Equals(savedBookName) || !Author.Equals(savedBookAuthor))
+                        {
+                            writer.WriteLine(book);
+                        } else
+                        {
+                            writer.WriteLine(BookName + "," + Author + "," + NewSummary + "," + BookStatus);
+                        }
+                        book = reader.ReadLine();
+                    }
+                    writer.Close();
+                }
+                reader.Close();
+                System.IO.File.Delete(Path.Combine(documentsPath, "Books.csv"));
+                System.IO.File.Move(Path.Combine(documentsPath, "NewBooks.csv"), Path.Combine(documentsPath, "Books.csv"));
+            }
+        }
+    }
 
     protected override void OnPropertyChanged(PropertyChangedEventArgs args)
     {
