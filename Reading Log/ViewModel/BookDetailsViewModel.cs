@@ -1,12 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 
-namespace Reading_Log.ViewModel
+namespace Reading_Log.ViewModel;
+
+[QueryProperty("BookName", "BookName")]
+[QueryProperty("Author","Author")]
+[QueryProperty("Summary", "Summary")]
+[QueryProperty("BookStatus", "BookStatus")]
+
+public partial class BookDetailsViewModel : ObservableObject
 {
-    internal class BookDetailsViewModel
+    [ObservableProperty]
+    string bookName;
+
+    [ObservableProperty]
+    string author;
+
+    [ObservableProperty]
+    string summary;
+
+    [ObservableProperty]
+    string bookStatus;
+
+    [RelayCommand]
+    async Task GoBack()
     {
+        await Shell.Current.GoToAsync("..");
     }
 }
+

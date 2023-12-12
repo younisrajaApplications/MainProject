@@ -135,4 +135,36 @@ public partial class MainViewModel : ObservableObject
         string filePath = Path.Combine(documentsPath, "Books.csv");
         System.IO.File.Create(filePath).Close();
     }
+
+    [RelayCommand]
+    async Task Tap(string book)
+    {
+        string documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+        string filePath = Path.Combine(documentsPath, "Books.csv");
+
+        string bookName="";
+        string author="";
+        string summary="";
+        string bookStatus="";
+
+        if (System.IO.File.Exists(filePath))
+        {
+            using StreamReader reader = new(filePath);
+            string line = reader.ReadLine();
+            while (line != null)
+            {
+                string[] bookDetails = line.Split(",");
+                if (book.Equals(bookDetails[0] + " by " + bookDetails[1]))
+                {
+                    bookName = bookDetails[0];
+                    author = bookDetails[1];
+                    summary = bookDetails[2];
+                    bookStatus = bookDetails[3];
+                }
+                line = reader.ReadLine();
+            }
+            reader.Close();
+        }
+        await Shell.Current.GoToAsync($"{nameof(BookDetailsPage)}?BookName={bookName}&Author={author}&Summary={summary}&BookStatus={bookStatus}");
+    }
 }

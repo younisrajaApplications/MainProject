@@ -2,11 +2,50 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Reading_Log.BookDetailsPage"
+             xmlns:viewmodel="clr-namespace:Reading_Log.ViewModel"
+             x:DataType="viewmodel:BookDetailsViewModel"
              Title="BookDetailsPage">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+    <StackLayout Padding="20">
+        <HorizontalStackLayout>
+            <Label
+                Text="Book Name: "
+                VerticalOptions="Center"
+                HorizontalOptions="Center"/>
+            <Label 
+                Text="{Binding BookName}"
+                VerticalOptions="Center" 
+                HorizontalOptions="Center" />
+        </HorizontalStackLayout>
+        <HorizontalStackLayout>
+            <Label
+                Text="Author: "
+                VerticalOptions="Center"
+                HorizontalOptions="Center"/>
+            <Label 
+                Text="{Binding Author}"
+                VerticalOptions="Center" 
+                HorizontalOptions="Center" />
+        </HorizontalStackLayout>
+        <HorizontalStackLayout>
+            <Label
+                Text="Summary"
+                VerticalOptions="Center"
+                HorizontalOptions="Center"/>
+            <Entry
+                Placeholder="{Binding Summary}"
+                Text="{Binding Summary}" />
+        </HorizontalStackLayout>
+        <HorizontalStackLayout>
+            <Label
+                Text="Status: "
+                VerticalOptions="Center"
+                HorizontalOptions="Center" />
+            <Label 
+                Text="{Binding BookStatus}"
+                VerticalOptions="Center" 
+                HorizontalOptions="Center" />
+        </HorizontalStackLayout>
+        <Button Text="Back"
+                Command="{Binding GoBackCommand}"/>
+    </StackLayout>
 </ContentPage>
