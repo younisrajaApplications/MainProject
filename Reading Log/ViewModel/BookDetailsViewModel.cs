@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using System.ComponentModel;
 
 namespace Reading_Log.ViewModel;
 
@@ -10,6 +11,8 @@ namespace Reading_Log.ViewModel;
 
 public partial class BookDetailsViewModel : ObservableObject
 {
+    private bool isSummaryInitialized = false;
+
     [ObservableProperty]
     string bookName;
 
@@ -22,10 +25,26 @@ public partial class BookDetailsViewModel : ObservableObject
     [ObservableProperty]
     string bookStatus;
 
+    [ObservableProperty]
+    string newSummary;
+
     [RelayCommand]
     async Task GoBack()
     {
         await Shell.Current.GoToAsync("..");
+    }
+
+
+
+    protected override void OnPropertyChanged(PropertyChangedEventArgs args)
+    {
+        base.OnPropertyChanged(args);
+
+        if (args.PropertyName == nameof(Summary) && !isSummaryInitialized)
+        {
+            NewSummary = Summary;
+            isSummaryInitialized = true; // Ensure this only happens once
+        }
     }
 }
 

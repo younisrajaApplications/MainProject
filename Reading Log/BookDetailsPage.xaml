@@ -6,46 +6,67 @@
              x:DataType="viewmodel:BookDetailsViewModel"
              Title="BookDetailsPage">
     <StackLayout Padding="20">
-        <HorizontalStackLayout>
+        <Grid RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto"
+            ColumnDefinitions=".50*,.50*"
+            Padding="10"
+            RowSpacing="10"
+            ColumnSpacing="10">
             <Label
+                Grid.Row="0"
+                Grid.Column="0"
                 Text="Book Name: "
                 VerticalOptions="Center"
-                HorizontalOptions="Center"/>
+                HorizontalOptions="End"/>
             <Label 
+                Grid.Row="0"
+                Grid.Column="1"
                 Text="{Binding BookName}"
                 VerticalOptions="Center" 
-                HorizontalOptions="Center" />
-        </HorizontalStackLayout>
-        <HorizontalStackLayout>
+                HorizontalOptions="Start" />
             <Label
+                Grid.Row="1"
+                Grid.Column="0"
                 Text="Author: "
                 VerticalOptions="Center"
-                HorizontalOptions="Center"/>
+                HorizontalOptions="End"/>
             <Label 
+                Grid.Row="1"
+                Grid.Column="1"
                 Text="{Binding Author}"
                 VerticalOptions="Center" 
-                HorizontalOptions="Center" />
-        </HorizontalStackLayout>
-        <HorizontalStackLayout>
+                HorizontalOptions="Start" />
             <Label
+                Grid.Row="2"
+                Grid.ColumnSpan="2"
                 Text="Summary"
                 VerticalOptions="Center"
                 HorizontalOptions="Center"/>
             <Entry
-                Placeholder="{Binding Summary}"
-                Text="{Binding Summary}" />
-        </HorizontalStackLayout>
-        <HorizontalStackLayout>
+                Grid.Row="3"
+                Grid.ColumnSpan="2"
+                Text="{Binding NewSummary}" />
             <Label
+                Grid.Row="4"
+                Grid.Column="0"
                 Text="Status: "
                 VerticalOptions="Center"
-                HorizontalOptions="Center" />
+                HorizontalOptions="End" />
             <Label 
+                Grid.Row="4"
+                Grid.Column="1"
                 Text="{Binding BookStatus}"
                 VerticalOptions="Center" 
-                HorizontalOptions="Center" />
-        </HorizontalStackLayout>
-        <Button Text="Back"
+                HorizontalOptions="Start" />
+            <Button 
+                Grid.Row="5"
+                Grid.Column="0"
+                Text="Back"
                 Command="{Binding GoBackCommand}"/>
+            <Button
+                Grid.Row="5"
+                Grid.Column="1"
+                Text="Save Changes"
+                Command="" />
+        </Grid>
     </StackLayout>
 </ContentPage>
