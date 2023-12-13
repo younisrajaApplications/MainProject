@@ -52,12 +52,12 @@ public partial class BookDetailsViewModel : ObservableObject
                         string[] savedBook = book.Split(",");
                         string savedBookName = savedBook[0];
                         string savedBookAuthor = savedBook[1];
-                        if (!BookName.Equals(savedBookName) || !Author.Equals(savedBookAuthor))
-                        {
-                            writer.WriteLine(book);
-                        } else
+                        if (BookName.Equals(savedBookName) && Author.Equals(savedBookAuthor))
                         {
                             writer.WriteLine(BookName + "," + Author + "," + NewSummary + "," + BookStatus);
+                        } else
+                        {
+                            writer.WriteLine(book);
                         }
                         book = reader.ReadLine();
                     }
