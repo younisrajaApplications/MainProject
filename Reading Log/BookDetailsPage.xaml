@@ -6,7 +6,7 @@
              x:DataType="viewmodel:BookDetailsViewModel"
              Title="BookDetailsPage">
     <StackLayout Padding="20">
-        <Grid RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto"
+        <Grid RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto"
             ColumnDefinitions=".50*,.50*"
             Padding="10"
             RowSpacing="10"
@@ -41,29 +41,54 @@
                 Text="Summary"
                 VerticalOptions="Center"
                 HorizontalOptions="Center"/>
-            <Entry
+            <Editor
                 Grid.Row="3"
                 Grid.ColumnSpan="2"
+                AutoSize="TextChanges"
                 Text="{Binding NewSummary}" />
             <Label
                 Grid.Row="4"
+                Grid.Column="0"
+                Text="Start Date: "
+                VerticalOptions="Center"
+                HorizontalOptions="End" />
+            <Label
+                Grid.Row="4"
+                Grid.Column="1"
+                Text="{Binding StartDate}"
+                VerticalOptions="Center"
+                HorizontalOptions="Start" />
+            <Label
+                Grid.Row="5"
+                Grid.Column="0"
+                Text="Finish Date: "
+                VerticalOptions="Center"
+                HorizontalOptions="End" />
+            <Label
+                Grid.Row="5"
+                Grid.Column="1"
+                Text="{Binding FinishDate}"
+                VerticalOptions="Center"
+                HorizontalOptions="Start" />
+            <Label
+                Grid.Row="6"
                 Grid.Column="0"
                 Text="Status: "
                 VerticalOptions="Center"
                 HorizontalOptions="End" />
             <Label 
-                Grid.Row="4"
+                Grid.Row="6"
                 Grid.Column="1"
                 Text="{Binding BookStatus}"
                 VerticalOptions="Center" 
                 HorizontalOptions="Start" />
             <Button 
-                Grid.Row="5"
+                Grid.Row="7"
                 Grid.Column="0"
                 Text="Back"
                 Command="{Binding GoBackCommand}"/>
             <Button
-                Grid.Row="5"
+                Grid.Row="7"
                 Grid.Column="1"
                 Text="Save Changes"
                 Command="{Binding SaveChangesCommand}" />

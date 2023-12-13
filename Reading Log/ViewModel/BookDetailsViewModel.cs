@@ -7,6 +7,8 @@ namespace Reading_Log.ViewModel;
 [QueryProperty("BookName", "BookName")]
 [QueryProperty("Author","Author")]
 [QueryProperty("Summary", "Summary")]
+[QueryProperty("StartDate", "StartDate")]
+[QueryProperty("FinishDate", "FinishDate")]
 [QueryProperty("BookStatus", "BookStatus")]
 
 public partial class BookDetailsViewModel : ObservableObject
@@ -24,6 +26,12 @@ public partial class BookDetailsViewModel : ObservableObject
 
     [ObservableProperty]
     string bookStatus;
+
+    [ObservableProperty]
+    string startDate;
+
+    [ObservableProperty]
+    string finishDate;
 
     [ObservableProperty]
     string newSummary;
@@ -54,7 +62,7 @@ public partial class BookDetailsViewModel : ObservableObject
                         string savedBookAuthor = savedBook[1];
                         if (BookName.Equals(savedBookName) && Author.Equals(savedBookAuthor))
                         {
-                            writer.WriteLine(BookName + "," + Author + "," + NewSummary + "," + BookStatus);
+                            writer.WriteLine(BookName + "," + Author + "," + NewSummary + "," + StartDate + "," + FinishDate + "," + BookStatus);
                         } else
                         {
                             writer.WriteLine(book);

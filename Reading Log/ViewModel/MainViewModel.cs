@@ -39,6 +39,12 @@ public partial class MainViewModel : ObservableObject
     [ObservableProperty]
     string summary;
 
+    [ObservableProperty]
+    string startDate;
+
+    [ObservableProperty]
+    string finishDate;
+
     [RelayCommand]
     void Add()
     {
@@ -48,6 +54,8 @@ public partial class MainViewModel : ObservableObject
             Author = string.Empty;
             Summary = string.Empty;
             BookFinished = false;
+            StartDate = string.Empty;
+            FinishDate = string.Empty;
             return;
         }
         if (!Books.Contains(Book + " by " + Author))
@@ -69,13 +77,17 @@ public partial class MainViewModel : ObservableObject
                 string bookStatus = "";
                 if (BookFinished) 
                 {
+                    StartDate = DateTime.Today.ToString("d");
+                    FinishDate = DateTime.Today.ToString("d");
                     bookStatus = "Finished";
                 } else
                 {
+                    StartDate = DateTime.Today.ToString("d");
+                    FinishDate = string.Empty;
                     bookStatus = "Reading";
                 }
                 if (!string.IsNullOrWhiteSpace(content)) writer.WriteLine(content);
-                writer.Write(Book + "," + Author + "," + Summary + "," + bookStatus);
+                writer.Write(Book + "," + Author + "," + Summary + "," + StartDate + "," + FinishDate + "," + bookStatus);
                 writer.Close();
             }
             Books.Add(Book + " by " + Author);
@@ -83,6 +95,8 @@ public partial class MainViewModel : ObservableObject
             Author = string.Empty;
             Summary = string.Empty;
             BookFinished = false;
+            StartDate = string.Empty;
+            FinishDate = string.Empty;
         } else
         {
             Book = "Already read!";
@@ -142,10 +156,12 @@ public partial class MainViewModel : ObservableObject
         string documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
         string filePath = Path.Combine(documentsPath, "Books.csv");
 
-        string bookName="";
-        string author="";
-        string summary="";
-        string bookStatus="";
+        string bookName = "";
+        string author = "";
+        string summary = "";
+        string startDate ="";
+        string finishDate = "";
+        string bookStatus = "";
 
         if (System.IO.File.Exists(filePath))
         {
@@ -159,12 +175,14 @@ public partial class MainViewModel : ObservableObject
                     bookName = bookDetails[0];
                     author = bookDetails[1];
                     summary = bookDetails[2];
-                    bookStatus = bookDetails[3];
+                    startDate = bookDetails[3];
+                    finishDate = bookDetails[4];
+                    bookStatus = bookDetails[5];
                 }
                 line = reader.ReadLine();
             }
             reader.Close();
         }
-        await Shell.Current.GoToAsync($"{nameof(BookDetailsPage)}?BookName={bookName}&Author={author}&Summary={summary}&BookStatus={bookStatus}");
+        await Shell.Current.GoToAsync($"{nameof(BookDetailsPage)}?BookName={bookName}&Author={author}&Summary={summary}&StartDate={startDate}&FinishDate={finishDate}&BookStatus={bookStatus}");
     }
 }
